@@ -21,13 +21,16 @@
 
 
 import React, { useState } from "react";
-import { SHEET_URL, SHEET_API_ENDPOINT } from "../lib/SheetUrl";
+import { SHEET_API_ENDPOINT } from "../lib/SheetUrl";
+import { useNavigate } from "react-router-dom";
+
 
 export default function GetWay() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
+  const NaviGate = useNavigate(); 
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -37,7 +40,7 @@ export default function GetWay() {
     try {
       // Fetching data from the specific tab "UserInfo"
       // Note: Modify the query string depending on your specific Sheet API provider (e.g., SheetDB, Stein, AppScript)
-      const response = await fetch(`${SHEET_URL}?sheet=UserInfo`);
+      const response = await fetch(`${SHEET_API_ENDPOINT}?sheet=UserTable`);
       
       if (!response.ok) {
         throw new Error("Failed to communicate with the server.");
@@ -58,7 +61,8 @@ export default function GetWay() {
         if (isActive) {
           // Save session successfully
           sessionStorage.setItem("Current_Controller", JSON.stringify(foundUser));
-          alert("Access Granted. Welcome!");
+          // alert("Access Granted. Welcome!");
+          NaviGate('/dashboard')
           // window.location.href = '/dashboard'; // Redirect logic here
         } else {
           setError("This account has been deactivated.");
