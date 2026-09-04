@@ -21,7 +21,7 @@
 
 
 import React, { useState } from "react";
-import { SHEET_URL } from "../lib/SheetUrl";
+import { SHEET_URL, SHEET_API_ENDPOINT } from "../lib/SheetUrl";
 
 export default function GetWay() {
   const [email, setEmail] = useState("");
